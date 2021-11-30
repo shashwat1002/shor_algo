@@ -38,6 +38,86 @@ There are three primary properties of the QFT that will be relevant to our purpo
 
 ### Property 1 
 
+Let the $QFT_N$ matrix be referred to as $Q$
+
+Required to prove: 
+
+$$
+Q \cdot Q ^{\dagger} = I
+$$
+
+Let us consider the LHS
+
+
+
+and let $\alpha_{jk}$ be the element on the $j^{th}$ row and the $k^{th}$ column (indexed from $0$)
+
+
+
+thus: 
+
+$$
+\begin{aligned}
+    \alpha _{jk} &= \frac{1}{N} \cdot \sum _{l=0} ^{N-1} \omega ^{jl} \cdot \overline{\omega^{lk}} \\
+    &= \frac{1}{N} \cdot \sum _{l=0} ^{N-1} \omega ^{jl - lk} \\
+    &= \frac{1}{N} \cdot \sum _{l=0} ^{N-1} \omega ^{l(j - k)}
+\end{aligned}
+$$
+
+This leads us to two cases:
+
+Case 1:
+
+$j=k$
+
+thus the summation becomes: 
+
+$$
+\begin{aligned}
+    \alpha_{jk} &= \frac{1}{N} \cdot \sum _{l=0} ^{N-1} \omega ^{l(j - k)} \\
+    &= \frac{1}{N} \sum _{l=0} ^{N-1} \omega^0 \\
+    &= \frac{1}{N} \sum _{l=0} ^{N-1} 1 \\
+    &= 1
+\end{aligned}
+$$
+
+Case 2:
+
+$j \not = k$
+
+thus summation becomes: 
+
+$$
+\begin{aligned}
+    \alpha_{jk} &= \frac{1}{N} \cdot \sum _{l=0} ^{N-1} \omega ^{l(j - k)} \\
+    &= \frac{1}{N} \sum _{l=0} ^{N-1} \omega^{j-k} \omega^l \\
+    &= \frac{\omega^{j-k}}{N} \sum _{l=0} ^{N-1} \omega ^l \\
+    & \text{ the summation is a geometric series} \\
+    &= \frac{\omega^{j-k}}{N} \cdot \frac{1 - \omega ^N}{1 - \omega} \\
+    & \text{We know: } \omega^N = 1 \\
+    &= 0
+\end{aligned}
+$$
+
+Therefore to summarize, we can say $\alpha_{jk}$ can be described with this function: 
+
+$$
+\alpha_{jk} = 
+\begin{cases}
+    1 & k=j \\
+    0 & \text{otherwise }
+\end{cases}
+$$
+
+and this describes a $I$ matrix. 
+
+Therefore, LHS = $I$ 
+
+LHS = RHS 
+
+Hence proved.
+
+
 TODO 
 
 ### Property 2 
