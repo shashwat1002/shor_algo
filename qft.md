@@ -32,7 +32,7 @@ As is visible right now, QFT is basically an application of the DST on the compu
 
 There are three primary properties of the QFT that will be relevant to our purpose of solving the period-finding sub-problem in the Shor's algorithm. 
 
-1. It is unitary (TODO: proof) and that implies we can make a quantum circuit corresponding to it. 
+1. It is unitary and that implies we can make a quantum circuit corresponding to it. 
 2. Two vectors that are just linearly shifted from each other will be transormed into two vectors that differ just in the _phase_ (formal definition and proof has been provided later in the document)
 3.  Periodicity relation: suppose the input vector is periodic with $r$ then the output vector is periodic with $\frac{N}{r}$
 
@@ -205,15 +205,15 @@ this vector is therefore:
 
 $$
 \begin{bmatrix}
-    \alpha _{0 + c \mod{N}} \\
-    \alpha _{1 + c \mod{N}} \\
+    \alpha _{(0 + c \mod{N})} \\
+    \alpha _{(1 + c \mod{N})} \\
     . \\
     . \\
     \alpha_{N-1} \\
     \alpha_0 \\
     . \\
     . \\
-    \alpha_{(N-c) \mod{N}}
+    \alpha_{(N-c)}
 \end{bmatrix}
 $$
 
@@ -292,18 +292,19 @@ $$
 and thus we have that: 
 
 $$
-\beta' _j = \omega_{jc} \beta _j
+\beta' _j = \omega^{jc} \beta _j
 $$
 
 and this is valid for all $j$ and therefore we can say that the outputs of the QFT of two linearly shifted vectors differ only in relative phase. 
 
 Hence proved. 
 
-As mentioned before, the reason this is so significant is that when we sample the outputs of the QFT, our observations will be the same for linearly shifted vectors because the relative phase difference can't manifest itself in the probability (because $|\omega^{jx}|^2 = 1$ and it is multiplied to the terms of the summation of the probability expression)
+As mentioned before, the reason this is so significant is that when we sample the outputs of the QFT, our observations will be the same for linearly shifted vectors because the relative phase difference can't manifest itself in the probability (because $|\omega^{jc}|^2 = 1$ and it is multiplied to the terms of the summation of the probability expression)
 
 ## Property 3
 
-A vector with period $r$ will lead to a vector with period $\frac{r}{M}$
+A vector with period $r$ will lead to a vector with period $\frac{N}{r}$
+in this context, when we say period of a vector we mean the periodicity of the coefficients for example $\alpha_1 = \alpha_3 = \alpha_5 \cdots$ and $\alpha_0 = \alpha_2 = \alpha_4 \cdots$ then the period is $2$
 
 Note: we won't be proving this property for the general case but for the specific case required for Shor's algorithm. 
 
@@ -312,7 +313,7 @@ When QFT is to be used in the Shor's algorithm, we can expect the elements of th
 $$
 \alpha_j  =
 \begin{cases}
-    \sqrt{\frac{r}{N}} & j = a_0 \mod {r} \\
+    \sqrt{\frac{r}{N}} & j \equiv a_0 \mod {r} \\
     0 & \text{ otherwise}
 \end{cases}
 $$
@@ -326,14 +327,16 @@ Now, say $N \mod {r} = 0$, in that case we can easily make the claim that the fo
 $$
 \alpha'_j  =
 \begin{cases}
-    \sqrt{\frac{r}{N}} & j = 0 \mod {r} \\
+    \sqrt{\frac{r}{N}} & j \equiv 0 \mod {r} \\
     0 & \text{ otherwise}
 \end{cases}
 $$
 
-we can say that the new vector is basically the old vector shifted by an offset of $a_0$. We know from the previous proven property that the only difference in the output will be that of relative phases. 
+is basically the old vector shifted by an offset of $a_0$. We know from the previous proven property that the only difference in the output will be that of relative phases. 
 
-This implies that all the rows that would be $0$ in the output of the old vector will continue to be $0$ and the same stands for the non-zerp values. This means that the output of both the vectors will have the same periodicity. 
+This implies that all the rows that would be $0$ in the output of the old vector will continue to be $0$ and the same stands for the non-zero values. This means that the output of both the vectors will have the same periodicity. 
+% more clarification needed
+
 
 So if we prove our claim for the output of the second vector, we will have proved it for the first vector as well. 
 
@@ -346,7 +349,7 @@ $$
     & \text{Therefore, we introduce a new parameter l, such that } l = \frac{k}{r}  \\
     & \text{Note: } l \text{ is an integer } \\
     &= \sqrt{\frac{1}{N}} \sum _{l=0} ^{\frac{N}{r} - 1} \omega ^{jrl} \alpha' _{jrl} \\
-    & \text{since } jrl  \equiv  0 \mod{r}, \text{ we have } \alpha' _{jrl} = \frac{r}{N} \\
+    & \text{since } jrl  \equiv  0 \mod{r}, \text{ we have } \alpha' _{jrl} = \sqrt{\frac{r}{N}} \\
     &= \frac{\sqrt{r}}{N} \sum _{l=0} ^{\frac{N}{r} - 1} \omega ^{jrl}
 \end{aligned}
 $$
