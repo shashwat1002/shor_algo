@@ -10,7 +10,7 @@ $$
 \beta_j = \frac{1}{\sqrt{N}}\sum _{k=0} ^{N-1} \omega ^{jk}  \alpha_k
 $$
 
-where $\omega$ is the $N^{th}$ root of $1$ i.e. $\omega = e^{\frac{2 \pi}{N}}$
+where $\omega$ is the $N^{th}$ root of $1$ i.e. $\omega = e^{\frac{2 i\pi}{N}}$
 
 The QFT (Quantum Fourier Transform) can be said to be the same matrix, just operating on the quantum computational basis.
 
@@ -24,7 +24,7 @@ $$
 |k \rangle \xrightarrow{QFT_{2^n}} \frac{1}{\sqrt{N}}\sum _{j=0} ^{2^n-1} \omega ^{kj} |j \rangle
 $$
 
-Where $\omega$ is the $N^{th}$ root of unity that is $\omega = e^{\frac{2 \pi}{N}}$
+Where $\omega$ is the $N^{th}$ root of unity that is $\omega = e^{\frac{2 i\pi}{N}}$
 
 As is visible right now, QFT is basically an application of the DST on the computational basis.
 
@@ -115,7 +115,7 @@ $$
 \beta_j = \frac{1}{\sqrt{2^n}}\sum _{k=0} ^{2^n-1} \omega ^{jk}  \alpha_k \forall j \in \{0, 1, \cdots 2^n -1 \}
 $$
 
-where $\omega = e^{\frac{2 \pi}{2^n}}$
+where $\omega = e^{\frac{2 i\pi}{2^n}}$
 
 For convenience, I will be using $N$ instead of $2^n$ for now:
 
