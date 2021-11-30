@@ -221,4 +221,88 @@ Hence proved.
 
 As mentioned before, the reason this is so significant is that when we sample the outputs of the QFT, our observations will be the same for linearly shifted vectors because the relative phase difference can't manifest itself in the probability (because $|\omega^{jx}|^2 = 1$ and it is multiplied to the terms of the summation of the probability expression)
 
+## Property 3
+
+A vector with period $r$ will lead to a vector with period $\frac{r}{M}$
+
+Note: we won't be proving this property for the general case but for the specific case required for Shor's algorithm. 
+
+When QFT is to be used in the Shor's algorithm, we can expect the elements of the row vector to be: 
+
+$$
+\alpha_j  =
+\begin{cases}
+    \sqrt{\frac{r}{N}} & j = a_0 \mod {r} \\
+    0 & \text{ otherwise}
+\end{cases}
+$$
+
+where $\alpha_i$ is the element at the $i^{th}$ row 
+
+and $a_0$ is some offset 
+
+Now, say $N \mod {r} = 0$, in that case we can easily make the claim that the following vector: 
+
+$$
+\alpha'_j  =
+\begin{cases}
+    \sqrt{\frac{r}{N}} & j = 0 \mod {r} \\
+    0 & \text{ otherwise}
+\end{cases}
+$$
+
+we can say that the new vector is basically the old vector shifted by an offset of $a_0$. We know from the previous proven property that the only difference in the output will be that of relative phases. 
+
+This implies that all the rows that would be $0$ in the output of the old vector will continue to be $0$ and the same stands for the non-zerp values. This means that the output of both the vectors will have the same periodicity. 
+
+So if we prove our claim for the output of the second vector, we will have proved it for the first vector as well. 
+
+Let $\beta' j$ be the value at the $j^{th}$ row for the output of the second vector 
+
+$$
+\begin{aligned}
+    \beta' _j &= \sqrt{\frac{1}{N}} \sum _{k=0} ^{N-1} \omega ^{jk} \alpha' _k \\
+    & \text{We know that } \alpha' _k = 0 \ \forall \ k \not \equiv 0 \mod{r} \\
+    & \text{Therefore, we introduce a new parameter l, such that } l = \frac{k}{r}  \\
+    & \text{Note: } l \text{ is an integer } \\
+    &= \sqrt{\frac{1}{N}} \sum _{l=0} ^{\frac{N}{r} - 1} \omega ^{jrl} \alpha' _{jrl} \\
+    & \text{since } jrl  \equiv  0 \mod{r}, \text{ we have } \alpha' _{jrl} = \frac{r}{N} \\
+    &= \frac{\sqrt{r}}{N} \sum _{l=0} ^{\frac{N}{r} - 1} \omega ^{jrl}
+\end{aligned}
+$$
+
+The last summation is actually that of a geometric series, therefore we can say: 
+
+$$
+\beta' _j = \frac{\sqrt{r}}{N} \cdot \frac{\omega^{jN} - 1}{\omega^{jr} - 1}
+$$
+
+Since $\omega ^N = 1$, the numerator is always $0$ 
+
+and in cases when $jr \equiv 0 \mod{N}$ the denominator is also $0$ and in such cases, we calculate the limit using the L' Hospital rule 
+
+$$
+\begin{aligned}
+    \lim _{j \to k \frac{N}{r}} \beta' _k &= \lim _{j \to k \frac{N}{r}} \frac{\sqrt{r}}{N} \cdot \frac{\omega^{jN} - 1}{\omega^{jr} - 1} \\
+    &= \frac{\sqrt{r}}{N} \cdot \lim _{j \to k \frac{N}{r}} \frac{\omega^{jN} - 1}{\omega^{jr} - 1} \\
+    &= \frac{\sqrt{r}}{N} \cdot \lim _{j \to k \frac{N}{r}} \frac{\frac{2 \pi i N}{N}}{\frac{2 \pi ir}{N}} \cdot \frac{\omega ^{jN}}{\omega ^{jr}} \\
+    &= \frac{\sqrt{r}}{N} \frac{N}{r}  \\
+    &= \frac{1}{\sqrt{r}}
+\end{aligned}
+$$
+
+
+Therefore, we can say that 
+
+$$
+\beta' _j = 
+\begin{cases}
+    \frac{1}{\sqrt{r}} & j \equiv 0 \mod{\frac{N}{r}} \\
+    0 & \text{otherwise }
+\end{cases}
+$$
+
+Therefore, we can say that the vector $\beta'$ (formed by the equation of $\beta' _j$) is periodic with $\frac{N}{r}$ therefore so is the vector $\beta$ (formed by the equation of $\beta_j$)
+
+Hence proved. 
 
