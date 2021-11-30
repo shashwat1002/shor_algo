@@ -118,7 +118,7 @@ LHS = RHS
 Hence proved.
 
 
-TODO 
+ 
 
 ### Property 2 
 
