@@ -807,7 +807,7 @@ $$
 $$
 where $\phi_l$ depends on the offset and the state but we can be assured that $|\phi _l|^2 = 1$ 
 
-Therefore, it has no effect on the probability of us observing a particular state on measurement, and at the end of each run (including the measurement) we will key $k \frac{2^n}{r}$ where $k$ is some constant.
+Therefore, it has no effect on the probability of us observing a particular state on measurement, and at the end of each run (including the measurement) we will get $k \frac{2^n}{r}$ where $k$ is some constant.
 
 Getting the GCD across the runs will get us a multiple of $\frac{2^n}{r}$, and
 if $r$ does not divide $2^n$ then we will have an approximation. 
@@ -845,7 +845,7 @@ This unitary transformation corresponding to above is considered the most resour
 But on the average we can say that the period finding algorithm requires modular multiplication circuits $U_b$ for 
 
 $$
-b= x, x^2, x^4 \cdot a^{2p}
+b= x, x^2, x^4 \cdots x^{2p}
 $$
 
 where $\log _2 (N^2) = 2p$
@@ -874,6 +874,8 @@ use recursion to get all the factors.
 
 Choose a random $x$. Assume $gcd(x, N) = 1$ ($x$ is co-prime to $N$)
 
+Note that if $x$ and $N$ are not co-prime then we have stumbled upon a factor and there is not problem.
+
 Then $r$, where $x^r \equiv 1 \text{ mod } N$ is the order of $x$.
 If $r$ is odd, repeat with another random $x$, and if $r$ is even,
 then there is a non-trivial square root of 1 equal to
@@ -883,6 +885,9 @@ $x^{\frac{r}{2}}$. We can use this non trivial square to find our factors.
 
 Find an efficiently computable periodic function whose period is the same as
 the order of $x$
+
+The function is:
+
 $$
 f(a) = x^a \text{ mod } N
 $$
@@ -890,10 +895,22 @@ $$
 If $r$ is the order of $x$, then $f(0) = f(r) = f(2r) = 1$, we chose our function
 specifically for this reason. In fact $f(a) = f(a + r) = f(a + 2r)$, in general.
 
+A corresponding quantum circuit is made, from hereto referred as $U_f$
+
+$U_f$ is applied on the state.
 
 ### 4. Quantum Fourier Transform
 
-$\ket{\alpha} = \sum_{j=0}^{\frac{M}{k} - 1}$
+$$
+\ket{\alpha} = \sum_{j=0} ^{\frac{M}{k} - 1}
+$$
+
+The output register is measured and the QFT is applied on the input register followed by a measurement of the input register. 
+
+This is done several times and the readings for all the runs are recorded followed by a GCD at of all the readings at the end. 
+
+At this point in the computation we will have obtained the period $r$. If $r$ is even then we simply calculate $x^{\frac{r}{2}} \mod{N}$ otherwise the whole process starts again with a different randomly chosen $x$ 
+
 
 
 
