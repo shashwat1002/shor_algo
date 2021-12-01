@@ -34,31 +34,13 @@ but the reason we model the system like this is because different
 superpositions evolve in different ways, even if they may give the same
 probability function for the $\ket{0}$ and the $\ket{1}$ state.
 
-## Hadamard gate
-
-Consider two qubits as such:
-$$
-\begin{aligned}
-	\ket{+} &= \frac{1}{\sqrt{2}} (\ket{0} + \ket{1}) \\
-	\ket{-} &= \frac{1}{\sqrt{2}} (\ket{0} - \ket{1}) \\
-\end{aligned}
-$$
-The **Hadamard gate**, $H$, has the following function on their states
-$$
-\begin{aligned}
-	H \ket{+} &\rightarrow \ket{0} \\
-	H \ket{-} &\rightarrow \ket{1} \\
-\end{aligned}
-$$
-
 ## Bell state
 
 Quantum entanglement is a fascinating phenomena where two qubits can seemingly
 change each other's states just by being observed. As soon as one qubit is
 measured, it collapses to a certain state. Seemingly instantaneously, the other
 qubit also collapses to the exact same state. Such a pair of qubits is said to
-be entangled. Interestingly, the two qubits need not be in proximity to each
-other.
+be entangled.
 
 This demonstrates how states with the same measurement outcome probabilities
 actually behave differently.
@@ -70,27 +52,62 @@ $$
 Each of the two qubits here is in an equal superposition of the $\ket{0}$ and the
 $\ket{1}$ states.
 
-## Prerequisite Linear Algebra
+The notation $\ket{ab}$ is actually equivalent to $\ket{a} \otimes \ket{b}$,
+where $\otimes$ is the tensor product of the two vectors. We make use of this
+notation commonly, and when we write $\ket{x}$ from here on, it need not be
+a single qubit vector, but could very well be an n-qubit state represented
+by the tensor product of $n$ corresponding state vectors.
 
-We are interested in vector spaces, specifically $\mathbb{C}^n$, the vector
-space of n-tuples of complex numbers. Though we will occasionally use column
-matrix notation, most commonly *ket* notation ($\ket{\psi}$) is used to
-represent vectors. A notable exception is the zero vector, which is represented
-directly by 0, not $\ket{0}$, since the second typically already has a different
-meaning.
-The field we associate with this space will also be complex field, i.e.
-complex numbers will be the scalars that we consider.
+In out bell state $\Phi^{+}$, if we were to observe one of the qubits,
+It would collapse to either 0 or 1. However, since there is 0 probability
+of the state of the other qubit to differ from the first, the second qubit
+also collapses to the exact same value as the first! This effect is actually
+non-local, i.e. the qubits need not be close together. This "spooky action
+at a distance", is part of what allows quantum computation to outperform
+classical computation in certain tasks.
 
-![Common Dirac Notation](common-notation.png)
+## Quantum gates
 
-We will mostly be concerned with finite dimensional vector spaces.
-In linear algebra, we predominantly deal with linear operators from
-one vector space to another vector space, (often they are from one vector
-space to the same vector space) represented as matrices.
-Here we shall occasionally see them in this form, but it is important
-to remember that matrix representations are the same as the abstract
-concept of the linear operators, only grounded in a specific input and output
-basis pair.
+Quantum gates transform the state of a qubit, and surprisingly,
+for every unitary matrix, there is a corresponding quantum gate.
+A **unitary matrix** $U$ is defined by the following property holding
+for it: $U^{\dagger}U = U U^{\dagger} = I$.
+
+It also follows then, that every quantum gate must be reversible, since we know
+the matrix $U^{\dagger}$ is the inverse of $U$, and there exists a corresponding
+quantum gate for it as well.
+
+## Hadamard gate
+
+Consider two qubits as such:
+$$
+\begin{aligned}
+	\ket{+} &= \frac{1}{\sqrt{2}} (\ket{0} + \ket{1}) \\
+	\ket{-} &= \frac{1}{\sqrt{2}} (\ket{0} - \ket{1}) \\
+\end{aligned}
+$$
+
+The **Hadamard gate**, $H$, has the following function on their states
+$$
+\begin{aligned}
+	H \ket{0} &\rightarrow \ket{+} \\
+	H \ket{+} &\rightarrow \ket{0} \\
+	H \ket{1} &\rightarrow \ket{-} \\
+	H \ket{-} &\rightarrow \ket{1} \\
+\end{aligned}
+$$
+
+The Hadamard gate is interestingly, it's own inverse gate as well.
+The matrix for the Hadamard gate looks like this for a single qubit:
+$$
+H = \frac{1}{\sqrt{2}} \begin{bmatrix}
+1 & 1 \\
+1 & -1 \\
+\end{bmatrix}
+$$
+The property of the Hadamard gate to provide equiprobable states for the
+system to collapse to, allows us to work on this equiprobable states and in
+essence parallelize our computations.
 
 ### Pauli matrices
 
@@ -100,42 +117,6 @@ The Pauli matrices are very useful $2 \times 2$ matrices
 
 The identity matrix is sometimes not considered, giving
 just $X$, $Y$, and $Z$ as the Pauli matrices.
-
-### Inner Product
-
-A function $(\cdot, \cdot)$ from $V \cross V$ to $\mathbb{C}$ is an inner product if
-it satisfies the requirements that:
-
-1) $(\cdot, \cdot)$ is linear in the second argument,
-$$
-\left( \ket{v}, \sum_{i} \lambda_i \ket{w_i} \right) = \sum_{i} \lambda_i (\ket{v}, \ket{w_i})
-$$
-   Note that this implies that the function is anti-linear in its first
-   argument as well, i.e. scalars taken out of the function in the first
-   argument come out as their conjugates.
-
-2) $\left( \ket{v}, \ket{w} \right)$ = $\left( \ket{w}, \ket{v} \right)^{*}$
-
-3) $\left( \ket{v}, \ket{v} \right) \geq 0$ with equality iff $\ket{v} = 0$
-
-We define the inner product on $\mathbb{C}^{n}$ as
-$$
-\braket{y}{z} \equiv (y, z) \equiv \sum_{i} {y_i}^{*} z_i \equiv
-\begin{bmatrix}
-{y_1}^{*} & ... & {y_n}^{*} \\
-\end{bmatrix}
-\begin{bmatrix}
-z_1 \\
-\vdots \\
-z_n \\
-\end{bmatrix}
-$$
-
-A vector space with an inner product defined on it is called an inner product space.
-With respect to finite dimensional complex vector spaces, **Hilbert spaces** are the
-same as inner product spaces.
-
-The concepts of orthogonality, norms, unit vectors etc. all apply.
 
 # Reduction of factoring to order-finding
 
@@ -713,4 +694,64 @@ $$
 Therefore, we can say that the vector $\beta'$ (formed by the equation of $\beta' _j$) is periodic with $\frac{N}{r}$ therefore so is the vector $\beta$ (formed by the equation of $\beta_j$)
 
 Hence proved. 
+
+# Appendix
+
+## Prerequisite Linear Algebra
+
+We are interested in vector spaces, specifically $\mathbb{C}^n$, the vector
+space of n-tuples of complex numbers. Though we will occasionally use column
+matrix notation, most commonly *ket* notation ($\ket{\psi}$) is used to
+represent vectors. A notable exception is the zero vector, which is represented
+directly by 0, not $\ket{0}$, since the second typically already has a different
+meaning.
+The field we associate with this space will also be complex field, i.e.
+complex numbers will be the scalars that we consider.
+
+![Common Dirac Notation](common-notation.png)
+
+We will mostly be concerned with finite dimensional vector spaces.
+In linear algebra, we predominantly deal with linear operators from
+one vector space to another vector space, (often they are from one vector
+space to the same vector space) represented as matrices.
+Here we shall occasionally see them in this form, but it is important
+to remember that matrix representations are the same as the abstract
+concept of the linear operators, only grounded in a specific input and output
+basis pair.
+
+### Inner Product
+
+A function $(\cdot, \cdot)$ from $V \cross V$ to $\mathbb{C}$ is an inner product if
+it satisfies the requirements that:
+
+1) $(\cdot, \cdot)$ is linear in the second argument,
+$$
+\left( \ket{v}, \sum_{i} \lambda_i \ket{w_i} \right) = \sum_{i} \lambda_i (\ket{v}, \ket{w_i})
+$$
+   Note that this implies that the function is anti-linear in its first
+   argument as well, i.e. scalars taken out of the function in the first
+   argument come out as their conjugates.
+
+2) $\left( \ket{v}, \ket{w} \right)$ = $\left( \ket{w}, \ket{v} \right)^{*}$
+
+3) $\left( \ket{v}, \ket{v} \right) \geq 0$ with equality iff $\ket{v} = 0$
+
+We define the inner product on $\mathbb{C}^{n}$ as
+$$
+\braket{y}{z} \equiv (y, z) \equiv \sum_{i} {y_i}^{*} z_i \equiv
+\begin{bmatrix}
+{y_1}^{*} & ... & {y_n}^{*} \\
+\end{bmatrix}
+\begin{bmatrix}
+z_1 \\
+\vdots \\
+z_n \\
+\end{bmatrix}
+$$
+
+A vector space with an inner product defined on it is called an inner product space.
+With respect to finite dimensional complex vector spaces, **Hilbert spaces** are the
+same as inner product spaces.
+
+The concepts of orthogonality, norms, unit vectors etc. all apply.
 
