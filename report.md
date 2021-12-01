@@ -50,5 +50,10 @@ One of the primary challenges of this undertaking was to understand the basics o
 
 One thing was clear to from the get go: any visualization we thought up should be rigorous as well as intuitive. This required to us have a very good grasp of the new paradigm before we could even start brainstorming. 
 
+# Conclusion
 
-
+Our initial project proposal was an ambitious one, which we had known from the beginning,
+but it seems we had still grossly underestimating the scope of what we had undertaken.
+However, despite not being able to achieve a rigorous visualization of Shor's algorithm,
+we do not regret taking this up as our project, and learnt a lot and hope that product
+of our work is nonetheless useful to anyone entering the field.
