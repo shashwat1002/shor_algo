@@ -101,7 +101,7 @@ The Pauli matrices are very useful $2 \times 2$ matrices
 The identity matrix is sometimes not considered, giving
 just $X$, $Y$, and $Z$ as the Pauli matrices.
 
-## Inner Product
+### Inner Product
 
 A function $(\cdot, \cdot)$ from $V \cross V$ to $\mathbb{C}$ is an inner product if
 it satisfies the requirements that:
@@ -137,97 +137,7 @@ same as inner product spaces.
 
 The concepts of orthogonality, norms, unit vectors etc. all apply.
 
-## Outer Product Representation
-
-Linear operators can be represented using the inner product in a representation
-called the *outer product representation* (you read that correctly, the outer
-product representation makes use of the inner product).
-
-Let $\ket{v} \in V, \ket{w} \in W$, where $V, W$ are inner product spaces.
-Then $\ketbra{w}{v}$ is defined by
-$$
-(\ketbra{w}{v})(\ket{v'}) \equiv \ket{w} \braket{v}{v'} = \braket{v}{v'} \ket{w}
-$$
-We can consider the operator $\ketbra{w}{v}$ acting on $\ket{v'}$, to be the same
-as multiplying (scaling) $\ket{w}$ with the complex number (scalar) $\braket{v}{v'}$.
-
-Note that this means the output space must be $W$, however we view it,
-and since $v' \in V$, the input space is $V$. This makes intuitive sense since
-this is a representation for a linear operator.
-
-### Completeness relation
-
-The reason we care about the outer product notation will become clearer
-upon seeing the *completeness relation* for orthonormal vectors.
-
-Let $\ket{i}$ by any orthonormal basis for $V$. Note, $\braket{i}{v} = v_i$.
-$$
-\left( \sum_{i} \ketbra{i}{i} \right) \ket{v} = \sum_{i} \ket{i} \braket{i}{v}
-= \sum_{i} v_i \ket{i} = \ket{v}
-$$
-
-This last relation holds for every $\ket{v} \in V$, which implies that
-$$
-\sum_{i} \ketbra{i}{i} = I
-$$
-
-<!-- TODO: Why do we want to represent linear operators in outer product notation again? -->
-Now, one reason why this completeness relation is useful is because it can be
-applied to represent any linear operator in the outer product notation.
-
-Consider a linear operator $A: V \rightarrow W$, and $\ket{v_i}$ as an orthonormal
-basis for it $V$, $\ket{w_j}$ for $W$. We have
-$$
-\begin{aligned}
-A &= I_{W} A I_{V} \\
-&= \sum_{ij} \ket{w_j} \langle w_j | A | v_i \rangle \bra{v_i} \\
-&= \sum_{ij} \langle w_j | A | v_i \rangle \ket{w_j} \bra{v_i} \\
-\end{aligned}
-$$
-
-This is the outer product representation for the linear operator $A$.
-
-### Cauchy-Schwarz inequality
-
-Consider two vectors $\ket{v}, \ket{w}$ in a Hilbert space. According
-to the Cauchy-Schwarz inequality, we have
-$$
-|\braket{v}{w}|^2 \leq \braket{v}{v} \braket{w}{w}
-$$
-
-In order to prove this, let us construct an orthonormal basis
-$\ket{i}$ for the vector space. Using the completeness relation, we have
-$\sum_{i} \ketbra{i}{i} = I$, and then
-$$
-\begin{aligned}
-\braket{v}{v} \braket{w}{w} &= \braket{v}{Iv} \braket{w}{w} \\
-&= \braket{v}{\left( \Sigma_{i} \ketbra{i}{i} \right) v} \braket{w}{w} \\
-&= \sum_{i} \braket{v}{(\ketbra{i}{i}) v} \braket{w}{w} \\
-&= \sum_{i} \braket{v}{i} \braket{i}{v} \braket{w}{w} \\
-&= \bra{v} \left( \frac{\ket{w}}{\sqrt{\braket{w}{w}}} \right) \left (\frac{\bra{w}}{\sqrt{\braket{w}{w}}} \right) \ket{v} \braket{w}{w} + \dots \\
-&\geq \frac{\braket{v}{w} \braket{w}{v}}{\braket{w}{w}} \braket{w}{w} \\
-&= \braket{v}{w} \braket{w}{v} = |\braket{v}{w}|^2\\
-\end{aligned}
-$$
-
-## Eigenvectors and eigenvalues
-
-We will commonly refer to $v$ as the eigenvalue for a vector $\ket{v}$ w.r.t
-some linear operator A, i.e. $A \ket{v} = v \ket{v}$. Recall that the
-characteristic function is given by $c(\lambda) \equiv \text{det}|A - \lambda I |$,
-and the eigenvalues of $A$ are the solutions to the characteristic
-equation $c(\lambda) = 0$
-
-<!-- Qiskit: https://www.youtube.com/watch?v=mAHC1dWKNYE -->
-The eigenvalues of unitary matrices are of the form $e^{i \theta}$,
-that is to say that they are complex numbers with norm equal to 1.
-Another property to note, is that for two eigenvalues $\lambda_x$ and $\lambda_y$, such
-that $\lambda_x \neq \lambda_y$, then the corresponding eigenvectors $\ket{x}, \ket{y}$, must
-be orthogonal, i.e $\braket{x}{y} = 0$.
-
-# Shor's algorithm to factorize a number
-
-## Reduction of factoring to order-finding
+# Reduction of factoring to order-finding
 
 Given $N$ as a positive integer and $x$ co-prime to $N$, $1 \leq x < N$,
 the order of $x$ modulo $N$ is defined as the *least positive* integer
@@ -288,11 +198,11 @@ This step itself can be further broken down as such:
 
 Let us proceed to formally state the first of these statements.
 
-### Lemma 1
+#### Lemma 1
 Let $p$ be an odd prime, $\alpha$ a natural number. Then the group
 $Z_{p^\alpha}^{*}$ is cyclic.
 
-### Proof
+#### Proof
 
 We state this lemma without proof.
 
@@ -716,7 +626,7 @@ Hence proved.
 
 As mentioned before, the reason this is so significant is that when we sample the outputs of the QFT, our observations will be the same for linearly shifted vectors because the relative phase difference can't manifest itself in the probability (because $|\omega^{jc}|^2 = 1$ and it is multiplied to the terms of the summation of the probability expression)
 
-## Property 3
+### Property 3
 
 A vector with period $r$ will lead to a vector with period $\frac{N}{r}$
 in this context, when we say period of a vector we mean the periodicity of the coefficients for example $\alpha_1 = \alpha_3 = \alpha_5 \cdots$ and $\alpha_0 = \alpha_2 = \alpha_4 \cdots$ then the period is $2$
