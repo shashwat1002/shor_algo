@@ -1,5 +1,6 @@
 ---
-title: notes on quantum computing
+title: Shor's Algorithm
+subtitle: Exploring quantum computation | AAD Project M21
 author:
 - Pratyaksh Gautam (2020114002)
 - Shashwat Singh (2020114016)
@@ -8,7 +9,9 @@ header-includes: |
 toc: true
 ---
 
-Our project covers Shor's algorithm, a famous algorithm that
+\newpage
+
+Our project covers Shor's algorithm, a famous quantum algorithm that
 can perform the factorization of a composite number in polynomial
 time in the size of its input. Shor's algorithm has a severe implications
 in the world of cryptography, specifically for the RSA encryption standard,
@@ -111,9 +114,30 @@ essence parallelize our computations.
 
 ### Pauli matrices
 
-The Pauli matrices are very useful $2 \times 2$ matrices
+The Pauli matrices are very useful $2 \times 2$ matrices, which correspond
+to elementary gates commonly used in quantum computations.
 
-![Pauli Matrices](pauli-matrices.png)
+$$
+\begin{matrix}
+	I \equiv \begin{bmatrix}
+		1 & 0 \\
+		0 & 1 \\
+	\end{bmatrix} &
+	X \equiv \begin{bmatrix}
+		0 & 1 \\
+		1 & 0 \\
+	\end{bmatrix} \\
+	\\
+	Y \equiv \begin{bmatrix}
+		0 & -i \\
+		i & 0 \\
+	\end{bmatrix} &
+	Z \equiv \begin{bmatrix}
+		1 & 0 \\
+		0 & -1 \\
+	\end{bmatrix} \\
+\end{matrix}
+$$
 
 The identity matrix is sometimes not considered, giving
 just $X$, $Y$, and $Z$ as the Pauli matrices.
