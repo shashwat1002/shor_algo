@@ -330,33 +330,30 @@ We can see this from lemma 2.
 
 # Quantum Fourier Transform 
 
-The Quantum fourier Transform uses the same matrix as the Discrete fourier transform. 
+The Quantum Fourier Transform uses the same matrix as the Discrete Fourier transform. 
 
-To formally define the Discrete fourier transform: 
-
-For a vector $(\alpha_0, \alpha_1, \cdots, \alpha_{N-1})$, the out is another vector $(\beta_0, \beta_1, \cdots, \beta_{N-1})$ such that 
+Discrete Fourier transform
+: For a vector $(\alpha_0, \alpha_1, \cdots, \alpha_{N-1})$, the out is another vector $(\beta_0, \beta_1, \cdots, \beta_{N-1})$ such that 
 
 $$
 \beta_j = \frac{1}{\sqrt{N}}\sum _{k=0} ^{N-1} \omega ^{jk}  \alpha_k
 $$
 
-where $\omega$ is the $N^{th}$ root of $1$ i.e. $\omega = e^{\frac{2 i\pi}{N}}$
+  where $\omega$ is the $N^{th}$ root of $1$ i.e. $\omega = e^{\frac{2 i\pi}{N}}$
 
 The QFT (Quantum Fourier Transform) can be said to be the same matrix, just operating on the quantum computational basis.
 
-i.e. the $QFT_N$ can be formally defined as (for $N = 2^n$): 
+Thus, with $|k \rangle$ and $|j \rangle$ as computational basis vectors
+the $QFT_N$ can be formally defined as (for $N = 2^n$): 
 
-where $|k \rangle$ and $|j \rangle$ are computational basis vectors 
-
-the transform: 
-
-$$
+Quantum Fourier transform
+: $$
 |k \rangle \xrightarrow{QFT_{2^n}} \frac{1}{\sqrt{N}}\sum _{j=0} ^{2^n-1} \omega ^{kj} |j \rangle
 $$
 
-Where $\omega$ is the $N^{th}$ root of unity that is $\omega = e^{\frac{2 i\pi}{N}}$
+  where $\omega$ is the $N^{th}$ root of unity that is $\omega = e^{\frac{2 i\pi}{N}}$
 
-As is visible right now, QFT is basically an application of the DST on the computational basis.
+As is visible right now, QFT is basically an application of the DFT on the computational basis.
 
 ## Relevant properties 
 
@@ -376,16 +373,9 @@ $$
 Q \cdot Q ^{\dagger} = I
 $$
 
-Let us consider the LHS
+Let us consider the LHS, and let $\alpha_{jk}$ be the element on the $j^{th}$ row and the $k^{th}$ column (indexed from $0$).
 
-
-
-and let $\alpha_{jk}$ be the element on the $j^{th}$ row and the $k^{th}$ column (indexed from $0$)
-
-
-
-thus: 
-
+Thus, we have
 $$
 \begin{aligned}
     \alpha _{jk} &= \frac{1}{N} \cdot \sum _{l=0} ^{N-1} \omega ^{jl} \cdot \overline{\omega^{lk}} \\
@@ -396,12 +386,11 @@ $$
 
 This leads us to two cases:
 
-Case 1:
+#### Case 1
 
 $j=k$
 
-thus the summation becomes: 
-
+Then, the summation becomes
 $$
 \begin{aligned}
     \alpha_{jk} &= \frac{1}{N} \cdot \sum _{l=0} ^{N-1} \omega ^{l(j - k)} \\
@@ -411,25 +400,22 @@ $$
 \end{aligned}
 $$
 
-Case 2:
+#### Case 2
 
 $j \not = k$
 
-thus summation becomes: 
-
+Then, summation becomes
 $$
 \begin{aligned}
     \alpha_{jk} &= \frac{1}{N} \cdot \sum _{l=0} ^{N-1} \omega ^{l(j - k)} \\
     &= \frac{1}{N} \sum _{l=0} ^{N-1} \omega^{j-k} \omega^l \\
-    &= \frac{\omega^{j-k}}{N} \sum _{l=0} ^{N-1} \omega ^l \\
-    & \text{ the summation is a geometric series} \\
-    &= \frac{\omega^{j-k}}{N} \cdot \frac{1 - \omega ^N}{1 - \omega} \\
-    & \text{We know: } \omega^N = 1 \\
+    &= \frac{\omega^{j-k}}{N} \sum _{l=0} ^{N-1} \omega ^l & (\text{the summation is a geometric series}) \\
+	&= \frac{\omega^{j-k}}{N} \cdot \frac{1 - \omega ^N}{1 - \omega} &(\text{we know } w^N = 1) \\
     &= 0
 \end{aligned}
 $$
 
-Therefore to summarize, we can say $\alpha_{jk}$ can be described with this function: 
+Therefore to summarize, we can say $\alpha_{jk}$ can be described with the function
 
 $$
 \alpha_{jk} = 
@@ -441,9 +427,7 @@ $$
 
 and this describes a $I$ matrix. 
 
-Therefore, LHS = $I$ 
-
-LHS = RHS 
+Therefore, LHS = $I$, LHS = RHS 
 
 Hence proved.
 
@@ -527,12 +511,9 @@ $$
 
 where $\omega = e^{\frac{2 i\pi}{2^n}}$
 
-For convenience, I will be using $N$ instead of $2^n$ for now:
+For convenience, I will be using $N$ instead of $2^n$ for now.
 
 Now, let us consider a linearly shifted vector that is shifted by some constant $c$
-
-this vector is therefore: 
-
 $$
 \begin{bmatrix}
     \alpha _{(0 + c \mod{N})} \\
@@ -547,16 +528,13 @@ $$
 \end{bmatrix}
 $$
 
-without loss of generality, we can assume $c < N$ 
-
-if the $k^{th}$ row of this vector is referred to as the $\alpha' _k$ then 
-
+Without loss of generality, we can assume $c < N$.
+If the $k^{th}$ row of this vector is referred to as the $\alpha' _k$ then 
 $$
 \alpha' _k = \alpha _{(k+c) \mod N}
 $$
 
-Now, say that: 
-
+Now, say that
 $$
 \begin{bmatrix}
     \alpha'_0 \\
@@ -591,7 +569,7 @@ $$
     & \text{and since } jc \text{ is a constant, we can say: } \\
     &= \frac{\omega^{jc}}{\sqrt{N}} \sum_{k=0} ^{N-1} \omega ^{j(k+c)} \alpha_{(k+c) \mod{N}} \\
     &= \frac{\omega^{jc}}{\sqrt{N}} \sum_{k=0} ^{N-1} (\omega ^{(k+c)})^j \alpha_{(k+c) \mod{N}} \\
-    & \text{Since, we know } \omega^N = 1, \text{We an say: } \omega^x = \omega^{x \mod{N}} \text{, thus: } \\
+    & \text{Since, we know } \omega^N = 1, \text{We can say: } \omega^x = \omega^{x \mod{N}} \text{, thus: } \\
     &= \frac{\omega^{jc}}{\sqrt{N}} \sum_{k=0} ^{N-1} (\omega ^{(k+c) \mod{N}})^j \alpha_{(k+c) \mod{N}} \\
     &= \frac{\omega^{jc}}{\sqrt{N}} \sum_{k=0} ^{N-1} \omega ^{j((k+c) \mod{N})} \alpha_{(k+c) \mod{N}} 
 \end{aligned}
@@ -725,51 +703,38 @@ Hence proved.
 # Period finding using QFT
 
 We first define the function 
-
 $$
 f(a) = x^a \mod{N}
 $$
-
-where $N$ is what we're trying to factorize and. 
-
-We need to find the period of this function. 
-
+where $N$ is what we're trying to factorize and we need to find the period of this function. 
 The period finding problem is what is solved exponentially better by a quantum circuit. 
 
 Let $n = \log _2 N$
 
 The input register has $2n$ qubits and the output register has $n$ qubits.
-
-in other words, we can say that 
-
+In other words, we can say that 
 $$
 f: \{0, 1\}^{2n} \to \{0,1\}^n
 $$
 
 We know that a unitary matrix $U_f$ can be constructed such that 
-
 $$
 |j \rangle \otimes | 0 \rangle \xrightarrow{U_f} |j \rangle \otimes |f(j) \rangle
 $$
-
 where $j \in Z_{2^{2n}}$ and $| j \rangle$ therefore refers to the computational basis. 
 
 Now, we begin with a state where all the collapse possiblities are equi-probable 
-
 i.e. our starting state is: 
-
 $$
 \frac{1}{\sqrt{2^{2n}}}  \sum_{j=0} ^{2^{2n}-1} |j \rangle \otimes |0\rangle
 $$
 
 and we apply $U_j$ on this:
-
 $$
 \left(\sum_{j=0} ^{2^{2n}-1} |j \rangle \otimes |0\rangle \right) \cdot U_f 
 $$
 
 Thus we have:
-
 $$
 \begin{aligned}
     \Big ( \frac{1}{\sqrt{2^{2n}}} \sum_{j=0} ^{2^{2n}-1} |j \rangle \otimes |0\rangle \Big) \cdot U_f  &= \frac{1}{\sqrt{2^{2n}}} \sum_{j=0} ^{2^{2n}-1} \Big ( |j \rangle \otimes |0\rangle \Big) \cdot U_f \\
@@ -777,34 +742,29 @@ $$
 \end{aligned}
 $$
 
-Note: the above expressions have been written in the form of tensor product of one $2n - bit$ register and another $n-bit$ register. 
+Note: the above expressions have been written in the form of tensor product of
+one $2n - bit$ register and another $n$-bit register. Also note that each $|j
+\rangle$ is a computational basis vector. 
 
-Also note that each $|j \rangle$ is a computational basis vector. 
-
-Therefore, the $n-bit$ register gets the output of the function (this works with the constraints of the co-domain we defined for $f$)
-
-and the input is retained. 
+Therefore, the $n$-bit register gets the output of the function (this works with the constraints of the co-domain we defined for $f$) and the input is retained. 
 
 Here the output register is measured and this leads to two things: 
 
 - a full collapse of the output register to exactly one state 
 - a partial collapse of the input register to a superposition of states that are consistent with the output. 
 
-
-
 When we measure the output register, the state will collapse i.e. all but one values in the vector will become $0$ and the non-zero place will be $1$ (this signifies a certainty as the state has collapsed)
 
 Suppose after the measurement of the output register, we see that it has collapsed to $f(a_0)$ 
 
-since we know that it the function is periodic with $r$ we have that
-
+Since we know that it the function is periodic with $r$ we have that
 $$
 f(a_0) = f(a_0 + r) = f(a_0 + 2r) \cdots 
 $$
 
 without loss of generality we can say $a_0 \leq 2^n$ 
 
-we know that all the states $|j \rangle \otimes |f(j) \rangle$ such that $f(j) \not = f(a_0)$  have a coefficient $0$ 
+We know that all the states $|j \rangle \otimes |f(j) \rangle$ such that $f(j) \not = f(a_0)$  have a coefficient $0$ 
 
 Thus the total state becomes: 
 
@@ -841,27 +801,17 @@ Here, we use the extremely handy properties of the Quantum fourier Transform (me
 
 Since every new run gives us a linearly shifted vector (all of which have the same period), we can apply QFT on all of at the end of the run to get a set of vectors that are _not linearly shifted_ and differ only in relative phase. 
 
-The good thing about relative phase is that it does not manifest itself in the probability of the final collapsed stated. 
-
-In other words at the end of each run, we will have 
-
+The good thing about relative phase is that it does not manifest itself in the probability of the final collapsed stated. In other words at the end of each run, we will have 
 $$
 \sqrt{\frac{r}{2^n}} \sum _{l=0} \phi_l |lr \rangle
 $$
-
 where $\phi_l$ depends on the offset and the state but we can be assured that $|\phi _l|^2 = 1$ 
 
-therefore, it has no effect on the probability of us observing a particular state on measurement. 
+Therefore, it has no effect on the probability of us observing a particular state on measurement, and at the end of each run (including the measurement) we will key $k \frac{2^n}{r}$ where $k$ is some constant.
 
-therefore at the end of each run (including the measurement) we will key $k \frac{2^n}{r}$ where $k$ is some constant 
-
-getting the GCD across the runs will get us a multiple of $\frac{2^n}{r}$ 
-
-If $r$ does not divide $2^n$ then we will have an approximation. 
-
-this method gives us the period and solves the period finding sub-problem. 
-
-
+Getting the GCD across the runs will get us a multiple of $\frac{2^n}{r}$, and
+if $r$ does not divide $2^n$ then we will have an approximation. 
+Thus, this method gives us the period and solves the period finding sub-problem. 
 
 # Wrapping it up 
 
@@ -909,6 +859,41 @@ And in general the number of samples required for the algorithm (the period find
 therefore the complexity of the overall algorithm this $\log _2 ^3 (N)$
 
 or if the input is $d$ bits then $d^3$
+
+# Putting everything together
+
+### 1. Reducing factoring to non-trivial square root of 1 modulo N
+
+If $x$ is a non-trivial square root of 1 modulo N, then one of $gcd(x \pm 1, N)$ is
+  a non-trivial factor.
+
+Getting one factor is enough for us here, since we can find one factor and then
+use recursion to get all the factors.
+
+### 2. The order of a random integer modulo N
+
+Choose a random $x$. Assume $gcd(x, N) = 1$ ($x$ is co-prime to $N$)
+
+Then $r$, where $x^r \equiv 1 \text{ mod } N$ is the order of $x$.
+If $r$ is odd, repeat with another random $x$, and if $r$ is even,
+then there is a non-trivial square root of 1 equal to
+$x^{\frac{r}{2}}$. We can use this non trivial square to find our factors.
+
+### 3. Order of an integer is the period of a particular periodic superposition
+
+Find an efficiently computable periodic function whose period is the same as
+the order of $x$
+$$
+f(a) = x^a \text{ mod } N
+$$
+
+If $r$ is the order of $x$, then $f(0) = f(r) = f(2r) = 1$, we chose our function
+specifically for this reason. In fact $f(a) = f(a + r) = f(a + 2r)$, in general.
+
+
+### 4. Quantum Fourier Transform
+
+$\ket{\alpha} = \sum_{j=0}^{\frac{M}{k} - 1}$
 
 
 
