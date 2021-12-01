@@ -732,7 +732,18 @@ meaning.
 The field we associate with this space will also be complex field, i.e.
 complex numbers will be the scalars that we consider.
 
-![Common Dirac Notation](common-notation.png)
+Notation                               | Description
+---                                    | ---
+$z^{*}$                                | Complex conjugate of $z$
+$\ket{\psi}$                           | Vector, also known as a *ket*
+$\bra{\psi}$                           | Vector dual to $\ket{\psi}$, also known as a *bra*
+$\braket{\psi}{\varphi}$               | Inner product between $\ket{\psi}$ and $\ket{\varphi}$, sometimes called a *braket*
+$\ket{\varphi} \otimes \ket{\psi}$     | Tensor product of $\ket{\phi}$ and $\ket{\psi}$
+$A^{*}$                                | Complex conjugate of the matrix $A$
+$A^{T}$                                | Transpose of the matrix $A$
+$A^{\dagger}$                          | Hermitian conjugate of $A$, $A^{\dagger} = \left(A^{T}\right)^{*}$
+
+: Common Dirac Notation
 
 We will mostly be concerned with finite dimensional vector spaces.
 In linear algebra, we predominantly deal with linear operators from
