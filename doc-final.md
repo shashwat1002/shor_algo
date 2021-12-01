@@ -719,6 +719,199 @@ Therefore, we can say that the vector $\beta'$ (formed by the equation of $\beta
 
 Hence proved. 
 
+
+
+
+# Period finding using QFT
+
+We first define the function 
+
+$$
+f(a) = x^a \mod{N}
+$$
+
+where $N$ is what we're trying to factorize and. 
+
+We need to find the period of this function. 
+
+The period finding problem is what is solved exponentially better by a quantum circuit. 
+
+Let $n = \log _2 N$
+
+The input register has $2n$ qubits and the output register has $n$ qubits.
+
+in other words, we can say that 
+
+$$
+f: \{0, 1\}^{2n} \to \{0,1\}^n
+$$
+
+We know that a unitary matrix $U_f$ can be constructed such that 
+
+$$
+|j \rangle \otimes | 0 \rangle \xrightarrow{U_f} |j \rangle \otimes |f(j) \rangle
+$$
+
+where $j \in Z_{2^{2n}}$ and $| j \rangle$ therefore refers to the computational basis. 
+
+Now, we begin with a state where all the collapse possiblities are equi-probable 
+
+i.e. our starting state is: 
+
+$$
+\frac{1}{\sqrt{2^{2n}}}  \sum_{j=0} ^{2^{2n}-1} |j \rangle \otimes |0\rangle
+$$
+
+and we apply $U_j$ on this:
+
+$$
+\left(\sum_{j=0} ^{2^{2n}-1} |j \rangle \otimes |0\rangle \right) \cdot U_f 
+$$
+
+Thus we have:
+
+$$
+\begin{aligned}
+    \Big ( \frac{1}{\sqrt{2^{2n}}} \sum_{j=0} ^{2^{2n}-1} |j \rangle \otimes |0\rangle \Big) \cdot U_f  &= \frac{1}{\sqrt{2^{2n}}} \sum_{j=0} ^{2^{2n}-1} \Big ( |j \rangle \otimes |0\rangle \Big) \cdot U_f \\
+    &= \frac{1}{\sqrt{2^{2n}}} \sum_{j=0} ^{2^{2n}-1} |j \rangle \otimes |f(j) \rangle
+\end{aligned}
+$$
+
+Note: the above expressions have been written in the form of tensor product of one $2n - bit$ register and another $n-bit$ register. 
+
+Also note that each $|j \rangle$ is a computational basis vector. 
+
+Therefore, the $n-bit$ register gets the output of the function (this works with the constraints of the co-domain we defined for $f$)
+
+and the input is retained. 
+
+Here the output register is measured and this leads to two things: 
+
+- a full collapse of the output register to exactly one state 
+- a partial collapse of the input register to a superposition of states that are consistent with the output. 
+
+
+
+When we measure the output register, the state will collapse i.e. all but one values in the vector will become $0$ and the non-zero place will be $1$ (this signifies a certainty as the state has collapsed)
+
+Suppose after the measurement of the output register, we see that it has collapsed to $f(a_0)$ 
+
+since we know that it the function is periodic with $r$ we have that
+
+$$
+f(a_0) = f(a_0 + r) = f(a_0 + 2r) \cdots 
+$$
+
+without loss of generality we can say $a_0 \leq 2^n$ 
+
+we know that all the states $|j \rangle \otimes |f(j) \rangle$ such that $f(j) \not = f(a_0)$  have a coefficient $0$ 
+
+Thus the total state becomes: 
+
+$$
+\begin{aligned}
+    & \sqrt{\frac{r}{2^{2^n}}} \sum _{l=0} ^{\frac{2^{2^n}}{r} - 1} |a_0 + lr \rangle \otimes |f(a_0) \rangle \\
+    & \text{ By distribution, we have: } \\
+    & \Biggl[ \sqrt{\frac{r}{2^{2^n}}} \sum _{l=0} ^{\frac{2^{2^n}}{r} - 1} |a_0 + lr \rangle  \Biggr] \otimes |f(a_0) \rangle
+\end{aligned}
+$$
+
+We can look look at the state of the input register independently now (as we can take output registers state out)
+
+$$
+\sqrt{\frac{r}{2^{2^n}}} \sum _{l=0} ^{\frac{2^{2^n}}{r} - 1} |a_0 + lr \rangle
+$$
+
+Here we reach a very interesting point at the algorithm. If we measure the state now, it will randomly collapse to any one of the possibilities and that won't give us much useful information. 
+
+Hypothetically if we had several runs, and suppose the next run the output register collapses to $f(b_0)$ and we'd have in the input register:
+
+$$
+\sqrt{\frac{r}{2^{2^n}}} \sum _{l=0} ^{\frac{2^{2^n}}{r} - 1} |b_0 + lr \rangle
+$$
+
+Notice that if we look at the state obtained from two different runs as vectors we notice that they're simply linear shifted versions of each other. 
+
+Means every time we run the algorithm, we will get a linearly shifted periodic vector with the same period everytime. 
+
+Here, we use the extremely handy properties of the Quantum fourier Transform (mentioned earlier) namely: 
+
+- Two vectors that are just linearly shifted from each other will be transformed into two vectors that differ just in the _phase_ (formal definition and proof has been provided later in the document)
+-  Periodicity relation: suppose the input vector is periodic with $r$ then the output vector is periodic with $\frac{2^n}{r}$
+
+Since every new run gives us a linearly shifted vector (all of which have the same period), we can apply QFT on all of at the end of the run to get a set of vectors that are _not linearly shifted_ and differ only in relative phase. 
+
+The good thing about relative phase is that it does not manifest itself in the probability of the final collapsed stated. 
+
+In other words at the end of each run, we will have 
+
+$$
+\sqrt{\frac{r}{2^n}} \sum _{l=0} \phi_l |lr \rangle
+$$
+
+where $\phi_l$ depends on the offset and the state but we can be assured that $|\phi _l|^2 = 1$ 
+
+therefore, it has no effect on the probability of us observing a particular state on measurement. 
+
+therefore at the end of each run (including the measurement) we will key $k \frac{2^n}{r}$ where $k$ is some constant 
+
+getting the GCD across the runs will get us a multiple of $\frac{2^n}{r}$ 
+
+If $r$ does not divide $2^n$ then we will have an approximation. 
+
+this method gives us the period and solves the period finding sub-problem. 
+
+
+
+# Wrapping it up 
+
+Here, some finer points will be discussed in passing because the implementation of the algorithm on actual circuit is not in the scope of this document. 
+
+When discussing time complexity of Quantum circuits, it makes sense to consider certain elementary gates as unit-time operations. The more complicated quantum circuits like the QFT and the $U_f$ mentioned above are constructed using said elementary gates. And that is where the implementation becomes important 
+
+First order of business is to consider the $U_f$ that is the unitary transformation corresponding to the modular exponentiation function $f$ 
+
+$$
+f(a) = x^a \mod{N}
+$$
+
+this can be written as:
+
+$$
+f(a) = (x^{2^0}) ^{a_0} (x^{2^1})^{a_1} \cdots \mod{N}
+$$
+
+where $a_0, a_1 \cdots$ represents the binary representation of $a$ from the LSB to the MSB 
+
+The unitary transformation corresponding to this: 
+
+$$
+|j \rangle \otimes |0 \rangle \xrightarrow{U_f} |j \rangle \otimes |f(j) \rangle
+$$
+
+
+This unitary transformation corresponding to above is considered the most resource intensive part of the Shor's algorithm. There are several popular implementation most of which use an array of quantum accumulator and multipliers. Like a digital circuit, the gate depth determines the time complexity. 
+
+But on the average we can say that the period finding algorithm requires modular multiplication circuits $U_b$ for 
+
+$$
+b= x, x^2, x^4 \cdot a^{2p}
+$$
+
+where $\log _2 (N^2) = 2p$
+
+why? because we will actually be implementing the second representation of the function $f$
+
+Each controlled modular multiplication operation requires a quantum circuit of size $\log_2 ^2 N$
+
+And in general the number of samples required for the algorithm (the period finding part required several sample, if you recall) scales with the $\log_2 (N)$
+
+therefore the complexity of the overall algorithm this $\log _2 ^3 (N)$
+
+or if the input is $d$ bits then $d^3$
+
+
+
 # Appendix
 
 ## Prerequisite Linear Algebra
@@ -778,4 +971,5 @@ With respect to finite dimensional complex vector spaces, **Hilbert spaces** are
 same as inner product spaces.
 
 The concepts of orthogonality, norms, unit vectors etc. all apply.
+
 
