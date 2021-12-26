@@ -4,3 +4,8 @@ Priority list:
 2. [] show phase cancelling stuff somehow (when QFT)
 3. [] generating the quantum circuit with U_f (as black box)
 4. [] representing the Uf thing as a set of mod multipliers on the quantum circuit
+
+possible visualization ideas 
+
+[] QFT phases (showing the different properties of QFT using bloch spheres maybe)
+

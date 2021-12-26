@@ -7,9 +7,11 @@ author:
 header-includes: |
 	\usepackage{physics}
 toc: true
+documentclass: book
+classoption: oneside
 ---
 
-\newpage
+# Acknowledgement
 
 Our project covers Shor's algorithm, a famous quantum algorithm that
 can perform the factorization of a composite number in polynomial
@@ -17,6 +19,8 @@ time in the size of its input. Shor's algorithm has a severe implications
 in the world of cryptography, specifically for the RSA encryption standard,
 which relies on the difficulty of factoring large numbers quickly on a
 classical computer to encrypt and secure data.
+
+We'd like to thank Professor Kannan Srinathan for the freedom given with regards to scope of the project and also encouraging us to undertake an ambitious project. 
 
 # Introduction to Quantum Computation
 
@@ -911,7 +915,7 @@ This is done several times and the readings for all the runs are recorded follow
 
 At this point in the computation we will have obtained the period $r$. If $r$ is even then we simply calculate $x^{\frac{r}{2}} \mod{N}$ otherwise the whole process starts again with a different randomly chosen $x$ 
 
-
+$\omicron$ $\Omicron$ 
 
 
 # Appendix
